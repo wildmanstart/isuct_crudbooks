@@ -1,0 +1,10 @@
+{{ define "content" }}
+    <form action="/book" method="POST">
+        <input type="text" class="" placeholder="ISBN" name="isbn" required>
+        <input type="text" class="" placeholder="Name" name="name" required>
+        <input type="text" class="" placeholder="Author" name="author" required>
+        <input type="text" class="" placeholder="Pages" name="pages" required>
+        <input type="text" class="" placeholder="Year" name="year" required>
+        <button type="submit">Save</button>
+    </form>
+{{ end }}

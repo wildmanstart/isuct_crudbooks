@@ -1,0 +1,33 @@
+{{ define "content" }}
+    <table border="">
+        <thead>
+            <th>Id</th>
+            <th>Isbn</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Pages</th>
+            <th>Year</th>
+            <th>AddedOn</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {{ range $key, $value := .books }}
+                <tr>
+                    <td>{{ $value.Id }}</td>
+                    <td>{{ $value.Isbn }}</td>
+                    <td>{{ $value.Name }}</td>
+                    <td>{{ $value.Author }}</td>
+                    <td>{{ $value.Pages }}</td>
+                    <td>{{ $value.Year }}</td>
+                    <td>{{ $value.Addedon }}</td>
+                    <td>
+                        <div style="display: flex; align-items: center; justify-content: space-between">
+                            <div style="color: green">Изменить</div>
+                            <div style="color: red">Удалить</div>
+                        </div>
+                    </td>
+                </tr>
+            {{ end }}
+        </tbody>
+    </table>
+{{ end }}
