@@ -1,10 +1,31 @@
 {{ define "content" }}
-    <form action="/book" method="POST">
-        <input type="text" class="" placeholder="ISBN" name="isbn" required>
-        <input type="text" class="" placeholder="Name" name="name" required>
-        <input type="text" class="" placeholder="Author" name="author" required>
-        <input type="text" class="" placeholder="Pages" name="pages" required>
-        <input type="text" class="" placeholder="Year" name="year" required>
-        <button type="submit">Save</button>
-    </form>
+    <div class="container mt-3">
+        <div class="mt-3 d-flex align-items-center justify-content-between">
+            <h1>Таблица со списком всех книг</h1>
+            <a href="/books" type="button" class="btn btn-success">Список всех книг</a>
+        </div>
+        <form class="mt-3" action="/book" method="POST">
+            <div class="form-group">
+                <label for="isbn">Isbn</label>
+                <input type="text" class="form-control" id="isbn" name="isbn">
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" class="form-control" id="author" name="author">
+            </div>
+            <div class="form-group">
+                <label for="pages">Pages</label>
+                <input type="text" class="form-control" id="pages" name="pages">
+            </div>
+            <div class="form-group">
+                <label for="pages">Year</label>
+                <input type="text" class="form-control" id="year" name="year">
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+    </div>
 {{ end }}

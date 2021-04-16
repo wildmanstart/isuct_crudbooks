@@ -1,13 +1,16 @@
 {{ define "content" }}
     <div class="container">
+        <div class="mt-3 d-flex align-items-center justify-content-between">
+            <h1>Читать книгу {{ .book.Name }}</h1>
+            <a href="/books" type="button" class="btn btn-success">Список книг</a>
+        </div>
         <div class="card mt-3 w-100" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{ .book.Name }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ .book.Author }}</h6>
                 <p class="card-text">Pages: {{ .book.Pages }}</p>
-                <a href="/book/update/{{ .book.Id }}" class="card-link">Обновить книгу</a>
-                <a href="#" class="card-link">Читать книгу</a>
-                <a href="/books" class="card-link">К списку книг</a>
+                <a href="/book/update/{{ .book.Id }}" class="btn btn-success">Обновить книгу</a>
+                <a href="#" class="btn btn-primary">Читать книгу</a>
             </div>
         </div>
     </div>
