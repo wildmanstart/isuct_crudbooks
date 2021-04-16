@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 )
 // Модель книги
 type Book struct {
@@ -17,6 +18,7 @@ type Book struct {
 	Pages string
 	Year string
 	Addedon string
+	UpdatedAt time.Time
 }
 
 // TODO::Конфиг вынести в отдельный файл
@@ -29,7 +31,7 @@ var db = pg.Connect(&pg.Options {
 func GetBooks() []Book {
 	var books []Book
 
-	err := db.Model(&books).Select()
+	err := db.Model(&books).Where("deleted = false").Select()
 
 	if err != nil {
 		panic(err)
@@ -49,6 +51,7 @@ func CreateBook(formData url.Values) (*Book, error){
 	}
 
 	_, err := db.Model(book).Insert()
+
 	if err != nil {
 		panic(err)
 	}
@@ -67,6 +70,7 @@ func GetBook(w http.ResponseWriter, r *http.Request) (*Book, error){
 
 	book := &Book{
 		Id: id,
+
 	}
 
 	err = db.Model(book).WherePK().Select()
@@ -97,14 +101,9 @@ func UpdateBook(formData url.Values, w http.ResponseWriter, r *http.Request) (*B
 	book.Author = formData.Get("book_author")
 	book.Pages = formData.Get("book_pages")
 	book.Year = formData.Get("book_year")
+	book.UpdatedAt = time.Now()
 
 	_, err = db.Model(book).WherePK().Update()
-
-	if err != nil {
-		panic(err)
-	}
-
-	err = db.Model(book).WherePK().Select()
 
 	if err != nil {
 		panic(err)
