@@ -1,0 +1,28 @@
+{{ define "content" }}
+    <div class="container mt-3">
+        <h3>{{ .title }}</h3>
+        <form action="/book/update/{{ .book.Id }}" method="POST">
+            <div class="form-group mt-3">
+                <label for="isbn">Isbn</label>
+                <input type="text" class="form-control" id="isbn" name="book_isbn" value="{{ .book.Isbn }}">
+            </div>
+            <div class="form-group mt-3">
+                <label for="book__name">Book name</label>
+                <input type="text" class="form-control" id="book__name" name="book_name" value="{{ .book.Name }}">
+            </div>
+            <div class="form-group mt-3">
+                <label for="book__author">Book author</label>
+                <input type="text" class="form-control" id="book__author" name="book_author" value="{{ .book.Author }}">
+            </div>
+            <div class="form-group mt-3">
+                <label for="book__pages">Book pages</label>
+                <input type="text" class="form-control" id="book__pages" name="book_pages" value="{{ .book.Pages }}">
+            </div>
+            <div class="form-group mt-3">
+                <label for="book_year">Book year</label>
+                <input type="text" class="form-control" id="book_year" name="book_year" value="{{ .book.Year }}">
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Обновить</button>
+        </form>
+    </div>
+{{ end }}

@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"fmt"
-	"net/http"
 	"github.com/foolin/goview"
 	"main/pkg/models"
+	"net/http"
+	"main/pkg/utils"
 )
 
 // Тут мы переопределяем путь до папки с views
@@ -65,14 +66,67 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/books", 301)
 }
 
-func getBook() {
+func GetBook(w http.ResponseWriter, r *http.Request) {
+	book, err := models.GetBook(w, r)
 
+	if err != nil {
+		utils.ErrorHandle(w, r, http.StatusNotFound)
+		return
+	}
+
+	view := gv.Render(w, http.StatusOK, "show", goview.M {
+		"title": "Книга " + string(book.Id),
+		"book": book,
+	})
+
+	if view != nil {
+		fmt.Fprint(w, "Error render show page")
+	}
 }
 
-func updateBook() {
+func ShowUpdateForm(w http.ResponseWriter, r *http.Request) {
 
+	book, err := models.GetBook(w, r)
+
+	if err != nil {
+		utils.ErrorHandle(w, r, http.StatusNotFound)
+		return
+	}
+
+	view := gv.Render(w, http.StatusOK, "update", goview.M {
+		"title": "Форма обновления книги \"" + book.Name + "\"",
+		"book": book,
+	})
+
+	if view != nil {
+		fmt.Fprint(w, "Error render show page", view)
+	}
 }
 
-func deleteBook() {
+func UpdateBook(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
 
+	if err != nil {
+		fmt.Fprint(w, "Error: ", err)
+	}
+
+	formData := r.Form
+
+	_, err = models.UpdateBook(formData, w, r)
+
+	if err != nil {
+		fmt.Fprint(w, "Error: ", err)
+	}
+
+	http.Redirect(w, r, "/books", 301)
+}
+
+func DeleteBook(w http.ResponseWriter, r *http.Request) {
+	status := models.DeleteBook(w, r)
+
+	if status == true {
+		http.Redirect(w, r, "/books", 301)
+	} else {
+		http.Redirect(w, r, "/books", 301)
+	}
 }
